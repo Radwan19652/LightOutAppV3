@@ -3,6 +3,11 @@ import numpy as np
 
 from LightOut_nxm_v3 import get_neighbors, solve_lights_out
 
+st.set_page_config(
+    page_title="Lights Out Solver",
+    page_icon="🕹",
+    layout="centered"
+)
 # ── Theme‑Switcher mit Danger‑Buttons ──
 theme = st.selectbox("Farbschema wählen:", ["Darkly", "Girly"])
 
@@ -45,7 +50,6 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Lights Out Solver", page_icon="🕹", layout="centered")
 st.title("Lights Out Solver (Web‑Version)")
 
 rows = st.number_input("Anzahl der Zeilen (n)", min_value=1, max_value=10, value=3)
