@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 
-from LightOut_nxm_v3 import get_neighbors, solve_lights_out  # falls du sie in einem separaten Modul belässt
+from LightOut_nxm_v3 import get_neighbors, solve_lights_out
 
 # ── Theme‑Switcher mit Danger‑Buttons ──
 theme = st.selectbox("Farbschema wählen:", ["Darkly", "Girly"])
@@ -21,22 +21,32 @@ else:
 
 st.markdown(f"""
     <style>
-      .reportview-container .main {{ background-color: {background}; }}
-      .sidebar .sidebar-content {{ background-color: {secondary_bg}; }}
+      /* Haupt‑App-Hintergrund */
+      .stApp {{ 
+          background-color: {background} !important; 
+      }}
+      /* Sidebar-Hintergrund */
+      [data-testid="stSidebar"] > div:first-child {{
+          background-color: {secondary_bg} !important;
+      }}
       /* alle Buttons auf primary_color */
       .stButton>button {{
           background-color: {primary_color} !important;
           color: {text_color} !important;
           border: none;
       }}
-      /* Texte und Inputs */
-      .stTextInput>div>div>input, .markdown-text-container {{
-          color: {text_color};
+      /* Texte in Inputs und Markdown */
+      .stTextInput>div>div>input,
+      .stTextArea>div>div>textarea,
+      .markdown-text-container {{
+          color: {text_color} !important;
+          background-color: transparent !important;
       }}
     </style>
 """, unsafe_allow_html=True)
 
-st.title("Lights Out Solver (Web‐Version)")
+st.set_page_config(page_title="Lights Out Solver", page_icon="🕹", layout="centered")
+st.title("Lights Out Solver (Web‑Version)")
 
 rows = st.number_input("Anzahl der Zeilen (n)", min_value=1, max_value=10, value=3)
 cols = st.number_input("Anzahl der Spalten (m)", min_value=1, max_value=10, value=3)
@@ -48,5 +58,5 @@ if st.button("Lösung berechnen"):
     if solution is None:
         st.error("Keine Lösung gefunden!")
     else:
-        moves = [i+1 for i,v in enumerate(solution) if v]
+        moves = [i+1 for i, v in enumerate(solution) if v]
         st.success(f"Gesamtlösung (1‑indexiert): {moves}")
