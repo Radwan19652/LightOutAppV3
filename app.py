@@ -22,7 +22,7 @@ else:
     background    = "#ffbbff"
     secondary_bg  = "#ff24ff"
     primary_color = "#e91e63"   # Normale Girly‑Primärfarbe
-    text_color    = "#ff0080"
+    text_color    = "#ffffff"
 
 st.markdown(f"""
     <style>
